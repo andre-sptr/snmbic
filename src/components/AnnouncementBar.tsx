@@ -4,8 +4,7 @@ const AnnouncementBar = () => {
   return (
     <div className="bg-gradient-to-r from-navy via-royal-blue to-primary py-2 px-4">
       <div className="container-narrow flex items-center justify-center gap-2 text-sm text-primary-foreground">
-        <span className="hidden sm:inline">🎓</span>
-        <span className="font-medium">Akses Pendaftaran Resmi:</span>
+        <span className="hidden sm:inline font-medium">🎓 Akses Pendaftaran Resmi:</span>
         <a
           href="https://snmb-madrasah.kemenag.go.id"
           target="_blank"

@@ -17,7 +17,7 @@ const highlights = [
   {
     icon: FileCheck,
     title: "Pendaftaran Online",
-    description: "Proses pendaftaran dilakukan secara online melalui portal resmi SNMB Kemenag dengan tahapan seleksi terstruktur.",
+    description: "Proses pendaftaran dilakukan secara online melalui portal resmi SNMB Kemenag.",
   },
 ];
 
@@ -66,9 +66,11 @@ const AboutSection = () => {
         <ScrollReveal delay={0.3} className="mt-16">
           <div className="p-8 rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 border border-primary/10">
             <div className="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-royal-blue flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl">🎓</span>
-              </div>
+              <img 
+                src="/favicon.ico" 
+                alt="Logo MAN IC Siak" 
+                className="w-16 h-16 rounded-full shadow-lg object-cover flex-shrink-0"
+              />
               <div className="flex-1">
                 <h4 className="text-xl font-bold text-foreground mb-2">
                   MAN Insan Cendekia Siak

@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 
 interface CountdownProps {
-  targetDate: Date;
-  label?: string;
+  startDate: Date;
+  endDate: Date;
+  upcomingLabel?: string;
+  openLabel?: string;
+  closedLabel?: string;
 }
 
 interface TimeLeft {
@@ -12,42 +15,75 @@ interface TimeLeft {
   seconds: number;
 }
 
-const Countdown = ({ targetDate, label = "Pendaftaran dibuka dalam" }: CountdownProps) => {
+const Countdown = ({ 
+  startDate, 
+  endDate, 
+  upcomingLabel = "Pendaftaran dibuka dalam",
+  openLabel = "⚠️ Segera daftar! Pendaftaran ditutup dalam",
+  closedLabel = "⛔ Pendaftaran Telah Ditutup"
+}: CountdownProps) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  const [isExpired, setIsExpired] = useState(false);
+  const [status, setStatus] = useState<'upcoming' | 'open' | 'closed'>('upcoming');
+  const [label, setLabel] = useState("Pendaftaran dibuka dalam");
 
   useEffect(() => {
-    const calculateTimeLeft = () => {
+    const calculateTimeLeft = (): { timeLeft: TimeLeft; status: 'upcoming' | 'open' | 'closed'; label: string } => {
       const now = new Date().getTime();
-      const target = targetDate.getTime();
-      const difference = target - now;
+      const start = startDate.getTime();
+      const end = endDate.getTime();
+      
+      let targetTime = start;
+      let currentStatus: 'upcoming' | 'open' | 'closed' = 'upcoming';
+      let currentLabel = upcomingLabel;
 
-      if (difference <= 0) {
-        setIsExpired(true);
-        return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+      if (now < start) {
+        targetTime = start;
+        currentStatus = 'upcoming';
+        currentLabel = upcomingLabel;
+      } else if (now >= start && now < end) {
+        targetTime = end;
+        currentStatus = 'open';
+        currentLabel = openLabel;
+      } else {
+        currentStatus = 'closed';
+        return { 
+          timeLeft: { days: 0, hours: 0, minutes: 0, seconds: 0 }, 
+          status: 'closed', 
+          label: closedLabel 
+        };
       }
 
-      return {
+      const difference = targetTime - now;
+
+      const timeLeft = {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
         hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
         minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
         seconds: Math.floor((difference % (1000 * 60)) / 1000),
       };
+
+      return { timeLeft, status: currentStatus, label: currentLabel };
     };
 
-    setTimeLeft(calculateTimeLeft());
+    const initial = calculateTimeLeft();
+    setTimeLeft(initial.timeLeft);
+    setStatus(initial.status);
+    setLabel(initial.label);
 
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+      const result = calculateTimeLeft();
+      setTimeLeft(result.timeLeft);
+      setStatus(result.status);
+      setLabel(result.label);
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, [startDate, endDate, upcomingLabel, openLabel, closedLabel]);
 
-  if (isExpired) {
+  if (status === 'closed') {
     return (
-      <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-accent/20 backdrop-blur-sm border border-accent/30">
-        <span className="text-accent font-bold text-lg">🎉 Pendaftaran Telah Dibuka!</span>
+      <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-destructive/10 backdrop-blur-sm border border-destructive/20">
+        <span className="text-destructive font-bold text-lg">{closedLabel}</span>
       </div>
     );
   }
@@ -61,32 +97,26 @@ const Countdown = ({ targetDate, label = "Pendaftaran dibuka dalam" }: Countdown
 
   return (
     <div className="text-center">
-      <p className="text-primary-foreground/70 text-sm mb-4 font-medium">{label}</p>
+      <p className={`text-sm mb-4 font-medium ${status === 'open' ? 'text-yellow-400 animate-pulse' : 'text-primary-foreground/70'}`}>
+        {label}
+      </p>
+
       <div className="inline-flex items-center gap-2 sm:gap-3">
         {timeUnits.map((unit, index) => (
           <div key={unit.label} className="flex items-center gap-2 sm:gap-3">
             <div className="relative group">
-              {/* Glow effect */}
-              <div className="absolute inset-0 bg-primary/30 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+              <div className={`absolute inset-0 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity ${status === 'open' ? 'bg-yellow-500/30' : 'bg-primary/30'}`} />
               
-              {/* Card */}
               <div className="relative w-16 sm:w-20 h-20 sm:h-24 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center overflow-hidden">
-                {/* Shimmer effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
-                
-                {/* Number */}
                 <span className="relative text-2xl sm:text-4xl font-extrabold text-primary-foreground tabular-nums">
                   {String(unit.value).padStart(2, "0")}
                 </span>
-                
-                {/* Label */}
                 <span className="relative text-[10px] sm:text-xs text-primary-foreground/70 font-medium mt-1">
                   {unit.label}
                 </span>
               </div>
             </div>
-
-            {/* Separator */}
             {index < timeUnits.length - 1 && (
               <span className="text-primary-foreground/50 text-2xl sm:text-3xl font-bold animate-pulse">
                 :
@@ -95,6 +125,13 @@ const Countdown = ({ targetDate, label = "Pendaftaran dibuka dalam" }: Countdown
           </div>
         ))}
       </div>
+      {status === 'open' && (
+        <div className="w-full mt-6 flex justify-center">
+          <div className="inline-block px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold border border-green-500/30">
+            ● Pendaftaran Sedang Berlangsung
+          </div>
+        </div>
+      )}
     </div>
   );
 };

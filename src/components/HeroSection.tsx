@@ -2,8 +2,8 @@ import { ArrowDown, ExternalLink, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Countdown from "@/components/Countdown";
 
-// Target date: 2 Januari 2026
-const REGISTRATION_START_DATE = new Date("2026-01-02T00:00:00");
+const jadwalBuka = new Date(2026, 0, 2, 0, 0, 0);
+const jadwalTutup = new Date(2026, 1, 7, 23, 59 , 59);
 
 const HeroSection = () => {
   return (
@@ -54,14 +54,17 @@ const HeroSection = () => {
           {/* Countdown Timer */}
           <div className="mb-8 animate-fade-up delay-300">
             <Countdown 
-              targetDate={REGISTRATION_START_DATE} 
-              label="Pendaftaran dibuka dalam"
+              startDate={jadwalBuka} 
+              endDate={jadwalTutup} 
+              upcomingLabel="Siap-siap! Pendaftaran SNMB dimulai dalam:"
+              openLabel="Waktu tersisa untuk mendaftar:"
+              closedLabel="Maaf, pendaftaran sudah ditutup."
             />
           </div>
 
           {/* Description */}
           <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto mb-8 animate-fade-up delay-300">
-            Selamat datang di laman resmi SNMB MAN Insan Cendekia Siak. 
+            Selamat datang di halaman resmi SNMB MAN Insan Cendekia Siak. 
             Pilih jalur seleksi yang sesuai dan daftarkan diri Anda melalui portal resmi.
           </p>
 
@@ -89,9 +92,7 @@ const HeroSection = () => {
               className="btn-secondary bg-white/10 border-white/30 text-primary-foreground hover:bg-white/20 hover:border-white/50 rounded-full px-8 py-6 text-lg w-full sm:w-auto group"
             >
               <a
-                href="https://linktr.ee/manicsiak"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#pusat-informasi" 
                 className="flex items-center gap-2"
               >
                 <Info className="w-5 h-5" />

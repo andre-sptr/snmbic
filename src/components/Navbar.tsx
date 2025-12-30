@@ -37,11 +37,13 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="#beranda" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-royal-blue flex items-center justify-center shadow-lg">
-              <span className="text-primary-foreground font-bold text-lg">M</span>
-            </div>
+            <img 
+              src="/favicon.ico" 
+              alt="Logo MAN IC Siak" 
+              className="w-10 h-10 rounded-full shadow-lg object-cover"
+            />
             <div className={`transition-colors ${isScrolled ? "text-foreground" : "text-primary-foreground"}`}>
-              <p className="font-bold text-sm leading-tight">MAN IC Siak</p>
+              <p className="font-bold text-sm leading-tight">MAN Insan Cendekia Siak</p>
               <p className="text-xs opacity-80">SNMB 2026/2027</p>
             </div>
           </a>
