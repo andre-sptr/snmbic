@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, FileText, Monitor, Megaphone } from "lucide-react";
 import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -76,6 +76,28 @@ const cardVariants = {
 
 const ScheduleSection = () => {
   const [activeTab, setActiveTab] = useState("prestasi");
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === "#jadwal-tes") {
+        setActiveTab("tes");
+        const element = document.getElementById("jadwal");
+        if (element) element.scrollIntoView({ behavior: "smooth" });
+      } else if (hash === "#jadwal-prestasi") {
+        setActiveTab("prestasi");
+        const element = document.getElementById("jadwal");
+        if (element) element.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
 
   return (
     <section id="jadwal" className="section-padding bg-background relative overflow-hidden">
