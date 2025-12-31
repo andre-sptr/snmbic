@@ -120,16 +120,15 @@ const InfoCenterSection = () => {
             {/* QR Placeholder */}
             <div className="inline-block p-4 bg-white rounded-2xl shadow-lg">
               <div className="w-40 h-40 bg-muted rounded-xl flex items-center justify-center">
-                <div className="text-center">
-                  <QrCode className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
-                  <p className="text-xs text-muted-foreground">QR Code Placeholder</p>
+                <div className="inline-block bg-white rounded-2xl shadow-lg">
+                  <img 
+                    src="/QR.jpg" 
+                    alt="Scan QR Code" 
+                    className="w-40 h-40 object-contain rounded-xl"
+                  />
                 </div>
               </div>
             </div>
-            
-            <p className="text-primary-foreground/50 text-xs mt-4">
-              *Gambar QR dapat diganti oleh admin
-            </p>
           </div>
         </ScrollReveal>
       </div>

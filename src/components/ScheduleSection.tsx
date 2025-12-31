@@ -154,7 +154,7 @@ const ScheduleSection = () => {
                       {data.steps.map((step, index) => (
                         <motion.div
                           key={index}
-                          className="relative"
+                          className="relative h-full flex flex-col"
                           custom={index}
                           initial="hidden"
                           whileInView="visible"
@@ -167,7 +167,7 @@ const ScheduleSection = () => {
                           </div>
 
                           {/* Card */}
-                          <div className="glass-card p-6 rounded-2xl mt-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                          <div className="glass-card p-6 rounded-2xl mt-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex-1 flex flex-col items-start w-full">
                             <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${key === 'prestasi' ? 'from-accent/20 to-amber-400/10' : 'from-primary/20 to-royal-blue/10'} flex items-center justify-center mb-4`}>
                               <step.icon className={`w-6 h-6 ${key === 'prestasi' ? 'text-accent' : 'text-primary'}`} />
                             </div>
@@ -177,7 +177,7 @@ const ScheduleSection = () => {
                             <h4 className="text-lg font-bold text-foreground mt-1 mb-2">
                               {step.title}
                             </h4>
-                            <p className="text-sm text-muted-foreground mb-4">
+                            <p className="text-sm text-muted-foreground mb-4 flex-1">
                               {step.description}
                             </p>
                             <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${key === 'prestasi' ? 'bg-accent/10 text-accent' : 'bg-primary/10 text-primary'} text-sm font-semibold`}>

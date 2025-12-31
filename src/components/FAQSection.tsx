@@ -23,11 +23,11 @@ const faqs = [
   },
   {
     question: "Apa saja persyaratan berkas pendaftaran?",
-    answer: "Informasi detail mengenai persyaratan berkas pendaftaran dapat dilihat melalui Pusat Informasi resmi kami atau portal pendaftaran SNMB Kemenag. [Placeholder - dapat diedit oleh admin]",
+    answer: "Informasi detail mengenai persyaratan berkas pendaftaran dapat dilihat melalui juknis SNMB atau portal pendaftaran SNMB Kemenag.",
   },
   {
     question: "Apakah ada biaya pendaftaran?",
-    answer: "Untuk informasi terkait biaya pendaftaran, silakan merujuk pada panduan resmi di portal SNMB Kemenag atau hubungi Pusat Informasi MAN IC Siak. [Placeholder - dapat diedit oleh admin]",
+    answer: "Untuk informasi terkait biaya pendaftaran, silakan merujuk pada panduan resmi di portal SNMB Kemenag atau hubungi Pusat Informasi MAN IC Siak.",
   },
 ];
 

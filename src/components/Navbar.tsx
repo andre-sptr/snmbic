@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 const navLinks = [
   { href: "#beranda", label: "Beranda" },
   { href: "#tentang", label: "Tentang" },
-  { href: "#jalur", label: "Jalur Seleksi" },
+  { href: "#jalur", label: "Seleksi" },
   { href: "#jadwal", label: "Jadwal" },
-  { href: "#pusat-informasi", label: "Pusat Informasi" },
+  { href: "#pusat-informasi", label: "Informasi" },
   { href: "#faq", label: "FAQ" },
+  { href: "/JuknisSNMB.pdf", label: "Juknis", external: true },
 ];
 
 const Navbar = () => {
