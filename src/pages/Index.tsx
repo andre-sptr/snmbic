@@ -7,6 +7,7 @@ import SelectionPathsSection from "@/components/SelectionPathsSection";
 import ScheduleSection from "@/components/ScheduleSection";
 import InfoCenterSection from "@/components/InfoCenterSection";
 import FAQSection from "@/components/FAQSection";
+import DownloadSection from "@/components/DownloadSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -32,6 +33,7 @@ const Index = () => {
         <ScheduleSection />
         <InfoCenterSection />
         <FAQSection />
+        <DownloadSection />
       </main>
       <Footer />
     </div>

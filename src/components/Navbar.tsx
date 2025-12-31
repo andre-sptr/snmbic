@@ -27,37 +27,33 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-card/95 backdrop-blur-xl shadow-md py-3"
-          : "bg-transparent py-4"
+      className={`fixed top-9 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl transition-all duration-300 rounded-full border border-border/40 bg-background/80 backdrop-blur-md shadow-lg ${
+        isScrolled ? "shadow-xl bg-background/90" : ""
       }`}
-      style={{ marginTop: isScrolled ? 0 : "36px" }}
     >
-      <div className="container-narrow">
+      <div className="px-6 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="#beranda" className="flex items-center gap-3">
             <img 
               src="/favicon.ico" 
               alt="Logo MAN IC Siak" 
-              className="w-10 h-10 rounded-full shadow-lg object-cover"
+              className="w-9 h-9 rounded-full shadow-sm object-cover"
             />
-            <div className={`transition-colors ${isScrolled ? "text-foreground" : "text-primary-foreground"}`}>
-              <p className="font-bold text-sm leading-tight">MAN Insan Cendekia Siak</p>
-              <p className="text-xs opacity-80">SNMB 2026/2027</p>
+            <div className="text-foreground transition-colors">
+              <p className="font-bold text-sm leading-tight">MAN IC Siak</p>
+              <p className="text-[10px] opacity-80 uppercase tracking-wider">SNMB 2026/2027</p>
             </div>
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isScrolled ? "text-foreground" : "text-primary-foreground"
-                }`}
+                target={link.external ? "_blank" : "_self"}
+                className="text-sm font-medium px-4 py-2 rounded-full text-foreground/80 hover:text-primary hover:bg-primary/10 transition-all"
               >
                 {link.label}
               </a>
@@ -68,7 +64,8 @@ const Navbar = () => {
           <div className="hidden lg:block">
             <Button
               asChild
-              className="btn-primary rounded-full px-6"
+              size="sm"
+              className="btn-primary rounded-full px-6 h-9"
             >
               <a
                 href="https://snmb-madrasah.kemenag.go.id"
@@ -82,24 +79,23 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden p-2 rounded-lg transition-colors ${
-              isScrolled ? "text-foreground hover:bg-muted" : "text-primary-foreground hover:bg-white/10"
-            }`}
+            className="lg:hidden p-2 rounded-full text-foreground hover:bg-muted transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Dropdown (Floating below the capsule) */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 py-4 bg-card/95 backdrop-blur-xl rounded-2xl shadow-lg animate-fade-up">
-            <div className="flex flex-col gap-2 px-4">
+          <div className="absolute top-full left-0 right-0 mt-3 p-2 bg-background/95 backdrop-blur-xl rounded-2xl border border-border/40 shadow-xl animate-in fade-in slide-in-from-top-2">
+            <div className="flex flex-col gap-1 p-2">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="py-3 px-4 text-foreground font-medium rounded-xl hover:bg-primary/10 transition-colors"
+                  target={link.external ? "_blank" : "_self"}
+                  className="py-3 px-4 text-sm font-medium text-foreground rounded-xl hover:bg-primary/10 hover:text-primary transition-colors text-center"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -107,7 +103,7 @@ const Navbar = () => {
               ))}
               <Button
                 asChild
-                className="btn-primary rounded-full mt-4"
+                className="btn-primary rounded-xl mt-2 w-full"
               >
                 <a
                   href="https://snmb-madrasah.kemenag.go.id"
